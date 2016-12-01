@@ -6,6 +6,10 @@ use Graph;
 use RDseq;
 use Carp; 
 use Getopt::Long;
+use File::Basename;
+use lib dirname(__FILE__).'/..';
+
+
 use constant LINK => "n" x 50;
 no warnings "experimental::autoderef";
 my $REPORT;
