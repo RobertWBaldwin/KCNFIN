@@ -2185,3 +2185,51 @@ sub datFasta
     $dat_ref->{$file_name}->{nbases} = $ncount;
     $dat_ref->{$file_name}->{lbases} = $lcount;  
 }
+
+
+
+sub checkBinary
+{
+    my $binary = shift;
+    my $min_version = undef;
+    my $max_version = undef;
+    if( @_ > 0 ){$min_version = shift;}
+    if( @_ > 0 ){$max_version = shift;}
+    
+    if( ! `which $binary` )
+    {
+        croak qq[Error: Cant find required binary $binary\n];
+    }
+    
+    if( $min_version )
+    {
+        my @minv = split( /\./, $min_version );
+        open( my $bfh, qq[ $binary 2>&1 | ] ) or die "failed to run $binary\n";
+        while(<$bfh>)
+        {
+            chomp;
+            if( lc($_) =~ /version/ && ( $_ =~ /(\d+)\.(\d+)\.(\d+)/ || $_ =~ /(\d+)\.(\d+)/ ) )
+            {
+                my $ver = $1.'.'.$2;
+                if( $ver < $minv[ 0 ].'.'.$minv[ 1 ] )
+                {
+                    die qq[\nERROR: $binary version at least $min_version is required - your version is $ver\n];
+                }
+                if( $max_version )
+                {
+                    my @maxv = split( /\./, $min_version );
+                    if( $ver > qq[$maxv[0].$maxv[1]] )
+                    {
+                        die qq[\nERROR: $binary version incompatible, please use $min_version to $max_version - your version is $ver\n];
+                    }
+                }
+                return;
+            }
+        }
+        close( $bfh );
+        die qq[ERROR: Cant determine version number of $binary\n];
+    }
+}
+
+
+
