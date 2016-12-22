@@ -1,6 +1,5 @@
 # KCNFIN
-RNA-Transcript Based Genome Scaffolding Tool 
-
+Transcript Based Genome Scaffolding Tool 
 
 
 
