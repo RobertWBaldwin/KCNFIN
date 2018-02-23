@@ -1,7 +1,7 @@
 # KCNFIN
-Transcript Based Genome Scaffolding and Assembly Tool 
+### Transcript Based Genome Scaffolding and Assembly Tool 
 
-KCNFIN is a transcript based genome scaffolding and assembly tool written in perl. It requires perl 5.15 or greater, Moose, graph.pm, and bl2seq ( if used with -A option )   
+#### KCNFIN is a transcript based genome scaffolding and assembly tool written in perl. It requires perl 5.15 or greater, Moose, graph.pm, and bl2seq ( if used with -A option )   
 Input: psl file, genome assembly fasta file, transcript fasta file.
 Output: new DNA assembly.
 
